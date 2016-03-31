@@ -31,17 +31,17 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(password_digest).is_password?(password)
   end
 
+  def reset_session_token
+    self.session_token = generate_session_token
+    save!
+  end
+
   private
 
   attr_reader :password
 
   def generate_session_token
     SecureRandom::urlsafe_base64
-  end
-
-  def reset_session_token
-    self.session_token = generate_session_token
-    save!
   end
 
   def ensure_session_token
