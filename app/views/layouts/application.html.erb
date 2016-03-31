@@ -5,6 +5,15 @@
   <!-- <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> -->
   <%= csrf_meta_tags %>
+  <% user = @user %>
+  <% if logged_in? %>
+    <%=button_to "Logout", session_url, method: "delete"%>
+    <br>
+    Logged in as: <%= user.email if user %>
+    <p>
+  <% else %>
+    <%=button_to "Login", new_session_url, method: "get"%><p>
+  <% end %>
 </head>
 <body>
 
