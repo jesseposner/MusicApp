@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :logged_in?, :current_user
-  before_action :logged_in_redirect, only: [:new, :create]
 
   private
 
@@ -26,5 +25,9 @@ class ApplicationController < ActionController::Base
 
   def logged_in_redirect
     redirect_to user_url(current_user) if logged_in?
+  end
+
+  def logged_out_redirect
+    redirect_to new_session_url unless logged_in?
   end
 end
